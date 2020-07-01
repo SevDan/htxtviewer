@@ -17,12 +17,12 @@
 package model.objects
 
 /**
- * Represents slice sequence for loading
+ * Represents visible part of text
  */
-data class SliceBatch(
-        val head: FileSlice,
-        val preview: FileSlice? = null,
-        val next: FileSlice? = null,
-        val bufferedPreview: FileSlice? = null,
-        val bufferedNext: FileSlice? = null
-)
+data class TextView(
+        val offset: Long,
+        val size: Long,
+        val startLine: Long,
+        val endLine: Long,
+        val maxLineSize: Int,
+        val textBuffer: TextBuffer)

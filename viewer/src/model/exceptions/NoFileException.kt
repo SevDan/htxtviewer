@@ -14,15 +14,12 @@
  * limitations under the License.
  */
 
-package model.objects
-
-import java.io.File
+package model.exceptions
 
 /**
- * Represents part of content
+ * Domain exception represents system cannot find file by path
  */
-data class FileSlice(
-        val point: Int,
-        val size: Int,
-        val file: File
-)
+class NoFileException : RuntimeException {
+    constructor() : super()
+    constructor(path: String) : super("Cannot find file by path $path")
+}

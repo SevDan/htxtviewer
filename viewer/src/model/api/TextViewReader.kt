@@ -16,20 +16,27 @@
 
 package model.api
 
-import model.objects.FileSlice
-import model.objects.SliceBatch
+import model.beans.TextViewReaderImpl
+import model.objects.TextBuffer
+import model.objects.TextView
 
-interface SliceLoader {
+/**
+ * Service for read text views from text buffer
+ */
+interface TextViewReader {
 
     /**
-     * Loads content for concrete file slice
+     * Factory method
      */
-    fun loadSliceContent(slice: FileSlice): String
+    fun get() = TextViewReaderImpl
 
     /**
-     * Loads content from batch for pointer.
-     * May damage performance
-     * @return content & after loading batch
+     * Returns numbered lines from text view
      */
-    fun loadBatchContent(sliceBatch: SliceBatch, pointer: Int): Pair<String, SliceBatch>
+    fun getViewContent(textView: TextView): Sequence<Pair<Long, String>>
+
+    /**
+     * Reads text view from text buffer and gets new text buffer if needed
+     */
+    fun readTextView(offset: Long, linesCount: Int, maxLineSize: Int, textBuffer: TextBuffer): Pair<TextView, TextBuffer>
 }
